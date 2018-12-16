@@ -5,58 +5,70 @@
 
 using namespace std;
 
-struct Element{
+struct Element
+{
 	DoubleLinkedList<int> lst;
     Dequeue<int> dq;
 	stack<int> st;
 };
 
-int main(){
+int main()
+{
 	setlocale(LC_ALL, "");
 	queue<Element> que;
 	Element temp;
 	int tt;
-	while(true){
+	while(true)
+	{
 		system("cls");
-		cout << "1. ƒобавить в очередь\n2. ”далить из очереди\n";
+		cout << "1. добавить в очередь\n2. удалить из очереди\n";
 		int a;
 		while(!(cin >> a));
-		try{
-		switch(a){
+		try
+		{
+		switch(a)
+		{
 		case 1:
-			cout << "«аполните стэк (-1 дл€ прекращени€): ";
-			while((cin >> tt) && tt != -1){
+			cout << "заполните стэк (-1 для прекращения): ";
+			while((cin >> tt) && tt != -1)
+			{
 				 temp.st.add(tt);
 			}
 			
-			cout << "«аполните список (-1 дл€ прекращени€): ";
-			while((cin >> tt) && tt != -1){
+			cout << "заполните список (-1 для прекращения): ";
+			while((cin >> tt) && tt != -1)
+			{
 				 temp.lst.AddItem(tt);
 			}
-			cout << "«аполните дек (-1 дл€ прекращени€): ";
-			while((cin >> tt) && tt != -1){
+			cout << "заполните дек (-1 для прекращения): ";
+			while((cin >> tt) && tt != -1)
+			{
 				 temp.dq.push_back(tt);
 			}
 			que.add(temp);
 			break;
 		case 2:
 			temp = que.remove();
-			cout << "—тек: ";
-			while(temp.st.size() != 0){
+			cout << "стек: ";
+			while(temp.st.size() != 0)
+			{
 				cout << temp.st.pop() << ' ';
 			}
-			cout << "\n—писок: ";
-			for(int i = 0; i < temp.lst.Count(); ++i){
+			cout << "\n список: ";
+			for(int i = 0; i < temp.lst.Count(); ++i)
+			{
 				cout << temp.lst[i] << ' ';
 			}
-			cout << "\nƒек: ";
-			while(temp.dq.size() != 0){
+			cout << "\n дек: ";
+			while(temp.dq.size() != 0)
+			{
 				cout << temp.dq.pop_front() << ' ';
 			}
 			break;
 		}
 		}
-		catch(const Exception& exc){
+		catch(const Exception& exc)
+		{
 			cout << exc.what();
 		}
 		system("pause>>void");
