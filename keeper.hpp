@@ -15,13 +15,13 @@ public:
 	List<T>	*Next(List<T> * item);//следующий элемент
 	List<T>	*Prev(List<T> * item);//предыдущий элемент
 	List<T>	*ItemById(size_t id);//элемент по его Id
-	T operator[](size_t id);//получение значени€ по id
+	T operator[](size_t id);//получение значения по id
 	List<T>	*ItemByData(T * pData);//получение элемента по значению
 	size_t			Count();//размер списка
 	void			Flush();//очистка списка
 	DoubleLinkedList<T>& operator=( DoubleLinkedList& l);
 	DoubleLinkedList();	//конструктор
-	DoubleLinkedList(DoubleLinkedList<T>& l);	//конструктор копирвоани€
+	DoubleLinkedList(DoubleLinkedList<T>& l);	//конструктор копирвоания
 	~DoubleLinkedList(); //деструктор
 };
 
@@ -29,38 +29,41 @@ public:
 
 template <class T> class List//элемент списка
 {
-	List <T>		*p_prev; //ссылка на предыдущий элемент
-	List <T>		*p_next;
-	bool				is_free; //пустой ли
+	List <T> *p_prev; //ссылка на предыдущий элемент
+	List <T> *p_next;
+	bool is_free; //пустой ли
 
-	T					m_pData;//данные
+	T m_pData;//данные
 	List();
 	~List();
 
 public:
-	T					data();
-	friend				DoubleLinkedList<T>;
+	T data();
+	friend	DoubleLinkedList<T>;
 };
 
 template <class T> DoubleLinkedList<T>& DoubleLinkedList<T>::operator=( DoubleLinkedList& l){
 	while(p_first)
 	{
-			DelItem(p_first);
+		DelItem(p_first);
 	}
 	p_first = p_last = nullptr;
 	 _count = 0;
 
-	for(int i = 0; i < l.Count(); ++i){
+	for(int i = 0; i < l.Count(); ++i)
+	{
 	    this->AddItem(l[i]);
 	}
 	return *this;
 }
 
-template <class T> DoubleLinkedList<T>::DoubleLinkedList(DoubleLinkedList<T>& l){
+template <class T> DoubleLinkedList<T>::DoubleLinkedList(DoubleLinkedList<T>& l)
+{
 	p_first = p_last = nullptr;
 	_count = 0;
 
-	for(int i = 0; i < l.Count(); ++i){
+	for(int i = 0; i < l.Count(); ++i)
+	{
 	    this->AddItem(l[i]);
 	}
 }
@@ -89,7 +92,7 @@ template <class T> void DoubleLinkedList<T>::Flush()
 {
 	while(p_first)
 	{
-			DelItem(p_first);
+		DelItem(p_first);
 	}
 	p_first = p_last = nullptr;
 }
@@ -122,7 +125,8 @@ template <class T> int DoubleLinkedList<T>::AddItem(const T &pData, bool fFreeSe
 
 template <class T> int DoubleLinkedList<T>::DelItem(List<T> *item)
 {
-	if(_count == 0){
+	if(_count == 0)
+	{
 		throw Exception("List underflow");
 	}
 	if ( item->p_next && item->p_prev )
@@ -179,7 +183,7 @@ template <class T> List<T> *DoubleLinkedList<T>::ItemById(size_t id)
 	return nullptr;
 }
 
-template <class T> List<T>	*DoubleLinkedList<T>::ItemByData(T * pData)
+template <class T> List<T> *DoubleLinkedList<T>::ItemByData(T * pData)
 {
 	for(List<T> * item = Next(0); item; item = Next(item) )
 	{
