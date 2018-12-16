@@ -1,0 +1,65 @@
+#include "Queue.hpp"
+#include "keepper.hpp"
+#include "Dequeue.hpp"
+#include "Stack.hpp"
+
+using namespace std;
+
+struct Element{
+	DoubleLinkedList<int> lst;
+    Dequeue<int> dq;
+	stack<int> st;
+};
+
+int main(){
+	setlocale(LC_ALL, "");
+	queue<Element> que;
+	Element temp;
+	int tt;
+	while(true){
+		system("cls");
+		cout << "1. ƒобавить в очередь\n2. ”далить из очереди\n";
+		int a;
+		while(!(cin >> a));
+		try{
+		switch(a){
+		case 1:
+			cout << "«аполните стэк (-1 дл€ прекращени€): ";
+			while((cin >> tt) && tt != -1){
+				 temp.st.add(tt);
+			}
+			
+			cout << "«аполните список (-1 дл€ прекращени€): ";
+			while((cin >> tt) && tt != -1){
+				 temp.lst.AddItem(tt);
+			}
+			cout << "«аполните дек (-1 дл€ прекращени€): ";
+			while((cin >> tt) && tt != -1){
+				 temp.dq.push_back(tt);
+			}
+			que.add(temp);
+			break;
+		case 2:
+			temp = que.remove();
+			cout << "—тек: ";
+			while(temp.st.size() != 0){
+				cout << temp.st.pop() << ' ';
+			}
+			cout << "\n—писок: ";
+			for(int i = 0; i < temp.lst.Count(); ++i){
+				cout << temp.lst[i] << ' ';
+			}
+			cout << "\nƒек: ";
+			while(temp.dq.size() != 0){
+				cout << temp.dq.pop_front() << ' ';
+			}
+			break;
+		}
+		}
+		catch(const Exception& exc){
+			cout << exc.what();
+		}
+		system("pause>>void");
+	}
+	system("pause>>void");
+}
