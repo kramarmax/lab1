@@ -4,7 +4,8 @@
 using namespace std;
 
 template<typename T>
-struct Node{ //узел дека
+struct Node //узел дека
+{ 
 	T data;//значение
 	Node<T> *n;//ссылка на следующий элемент
 	Node<T> *p;//ссылка на предыдущий элмент
@@ -12,15 +13,18 @@ struct Node{ //узел дека
 
 
 template<typename T>
-class Dequeue{//двусв€зный список
+class Dequeue //двусвязный список
+{
 private:
 	size_t _size;//рамер дека
 	Node<T> *start;//начало дека
 	Node<T> *end;//конец дека
 public:
-	Dequeue& operator=(const Dequeue<T>& d){
+	Dequeue& operator=(const Dequeue<T>& d)
+	{
 		Node<T>* temp;
-		while(_size > 0){//удал€ем все элементы дека
+		while(_size > 0) //удаляем все элементы дека
+		{
 			temp = start;
 			start = start->n;
 			delete temp;
@@ -30,34 +34,40 @@ public:
 		start = nullptr;
 		end = nullptr;
 		Node<T> *tmp = d.start;
-		for(int i = 0; i < d.size(); ++i){
+		for(int i = 0; i < d.size(); ++i)
+		{
 			this->push_back(tmp->data);
 			tmp = tmp->n;
 		}
 		return *this;
 	}
-	Dequeue(const Dequeue<T>& d){
+	Dequeue(const Dequeue<T>& d)
+	{
 		_size = 0;
 		start = nullptr;
 		end = nullptr;
 		Node<T> *tmp = d.start;
-		for(int i = 0; i < d.size(); ++i){
+		for(int i = 0; i < d.size(); ++i)
+		{
 			this->push_back(tmp->data);
 			tmp = tmp->n;
 		}
 	}
 
-	Dequeue(){
+	Dequeue()
+	{
 		_size = 0;
 		start = nullptr;
 		end = nullptr;
 	}
 
-	size_t size() const{//размер дека
+	size_t size() const //размер дека
+	{
 		 return _size;
 	}
 
-	void push_front(const T &data){//добавл€ет в начало дека
+	void push_front(const T &data) //добавляет в начало дека
+	{
 		++_size;
 		Node<T> *temp = new Node<T>();
 		temp->data = data;
@@ -70,8 +80,10 @@ public:
 			end = temp;
 	}
 	
-	T pop_front(){//удал€ет из начала дека
-		if(start == nullptr){
+	T pop_front() //удаляет из начала дека
+	{
+		if(start == nullptr)
+		{
 			throw Exception("Dequeue underflow");
 		}
 		--_size;
@@ -86,7 +98,8 @@ public:
 		return res;
 
 	}
-	void push_back(const T &data){//ƒобавл€ет элемент в конец
+	void push_back(const T &data) //добавляет элемент в конец
+	{
 		++_size;
 		Node<T> *temp = new Node<T>();
 		temp->n = nullptr;
@@ -100,8 +113,10 @@ public:
 			start = temp;
 	}
 
-	T pop_back(){//удал€ет элемент с конца
-		if(end == nullptr){
+	T pop_back() //удаляет элемент с конца
+	{
+		if(end == nullptr)
+		{
 			throw Exception("Dequeue underflow");
 		}
 		T res = end->data;
@@ -117,9 +132,11 @@ public:
 	}
 
 
-	~Dequeue(){//деструктор
+	~Dequeue() //деструктор
+	{
 		Node<T>* temp;
-		while(_size > 0){//удал€ем все элементы дека
+		while(_size > 0) //удаляем все элементы дека
+		{
 			temp = start;
 			start = start->n;
 			delete temp;
