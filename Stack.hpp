@@ -2,23 +2,25 @@
 #include "Exception.hpp"
 
 template<typename T>
-struct node{//элемент стека
-  	T _data; // значенеи элемента
+struct node //элемент стека
+{   
+  	T _data;  // значенеи элемента
 	node *next;	//ссылка на следущий элемент
 };
 
 
 #include <iostream>
 template<typename T>
-class stack {
+class stack 
+{
 private:
     node<T> *_head; //начало стека
     int _size; //размер стека
 public:
-   stack(const stack& s);//конструктор копировани€
+   stack(const stack& s);//конструктор копирования
    stack();//конструктор
    void add(const T &_data);//заносим элемент в конец стека
-   T pop();//удал€ем элемент из конца стека
+   T pop();//удаляем элемент из конца стека
    int size() const; //размер
    stack<T>& operator=(const stack& s);
    template<typename U>
@@ -30,21 +32,24 @@ public:
 };
 
 template<typename T>
-stack<T>& stack<T>::operator=(const stack& s){
+stack<T>& stack<T>::operator=(const stack& s)
+{
 	for(int i = 0; i < _size; ++i){//проходим по каждому элементу
 			node<T> *buf = _head;
 			_head = _head->next;//переходим к следующему
-			delete buf;//удал€ем предыдущий
+			delete buf;//удаляем предыдущий
 		}
 	_head = nullptr;
 		_size = 0;
 	T* ss = new T[s.size()];
 	node<T> *temp = s._head;
-	for(int i = 0; i < s.size(); ++i){
+	for(int i = 0; i < s.size(); ++i)
+	{
 		ss[i] =temp->_data;
 		temp = temp->next;
 	}
-	for(int i = 0; i < s.size(); ++i){
+	for(int i = 0; i < s.size(); ++i)
+	{
 		this->add(ss[i]);
 	}
 	delete[] ss;
@@ -52,26 +57,30 @@ stack<T>& stack<T>::operator=(const stack& s){
 }
 
 template<typename T>
-stack<T>::stack(const stack<T>& s):_head(nullptr), _size(0){
+stack<T>::stack(const stack<T>& s):_head(nullptr), _size(0)
+{
 	T* ss = new T[s.size()];
 	node<T> *temp = s._head;
-	for(int i = 0; i < s.size(); ++i){
+	for(int i = 0; i < s.size(); ++i)
+	{
 		ss[i] = temp->_data;
 		temp = temp->next;
 	}
-	for(int i = 0; i < s.size(); ++i){
+	for(int i = 0; i < s.size(); ++i)
+	{
 		this->add(ss[i]);
 	}
 	delete[] ss;
 }
 
 template<typename T>
-stack<T>::stack<T>():_head(nullptr), _size(0){
-   }
-
+stack<T>::stack<T>():_head(nullptr), _size(0) 
+{
+}
 template<typename T>
-void stack<T>::add(const T &_data){
-	  node<T> *buf = new node<T>;//создаЄм и инициализируем новый элемент
+void stack<T>::add(const T &_data)
+{
+	  node<T> *buf = new node<T>;//создаем и инициализируем новый элемент
 	  buf->next = _head;
 	  buf->_data = _data;
       _head = buf;
@@ -79,7 +88,8 @@ void stack<T>::add(const T &_data){
 }
 
 template<typename T>
-T stack<T>::pop(){
+T stack<T>::pop()
+{
 	   if(_size <= 0){//если пустой
 			throw Exception("stack underflow");
 	   }
@@ -92,7 +102,8 @@ T stack<T>::pop(){
 }
 
 template<typename T>
-int stack<T>::size() const{ 
+int stack<T>::size() const
+{ 
 	return _size; 
 }
 
@@ -100,17 +111,20 @@ int stack<T>::size() const{
 
 
 template<typename T>
-std::ostream& operator <<(std::ostream& out, const stack<T>& s){
+std::ostream& operator <<(std::ostream& out, const stack<T>& s)
+{
 	node<T> *buf = s._head;
-	for(int i = 0; i < s._size; ++i){//проходим по каждому элементу
+	for(int i = 0; i < s._size; ++i) //проходим по каждому элементу
+	{
 		   out << buf->_data << ' ';
 		   buf = buf->next;//переходим к следующему
-		}
+	}
 	return out;
 }
 
 template<typename T>
-std::istream& operator >>(std::istream& in, stack<T>& s){
+std::istream& operator >>(std::istream& in, stack<T>& s)
+{
 	 T buf;
 	 in >> buf;
 	 s.add(buf);
@@ -118,11 +132,13 @@ std::istream& operator >>(std::istream& in, stack<T>& s){
 }
 
 template<typename T>
-stack<T>::~stack(){ //деструктор
-		for(int i = 0; i < _size; ++i){//проходим по каждому элементу
+stack<T>::~stack() //деструктор
+{ 
+		for(int i = 0; i < _size; ++i) //проходим по каждому элементу
+		{
 		   node<T> *buf = _head;
 		   _head = _head->next;//переходим к следующему
-		   delete buf;//удал€ем предыдущий
+		   delete buf;//удаляем предыдущий
 		}
 		_size = 0;
 }
